@@ -1,0 +1,12 @@
+# Image credits
+
+All photography below was selected from Pexels, downloaded into `public/images/`, and stored locally for site delivery. No AI-generated images are used. The Pexels license does not require attribution, but credits are recorded here as requested. Temporary candidate downloads used for hash/source matching are excluded from Git; their filenames are recorded below for provenance.
+
+| Local file | Use | Source / credit |
+|---|---|---|
+| `public/images/tanzania-freight-road.jpg` | Hero poster, story, fleet cards, route collage, news | Pexels search result for East African freight trucks; source candidate matching the local file is `image-search/african-truck-freight-road-kenya-pexels--4.jpg`. [Pexels search: African truck freight road](https://www.pexels.com/search/african%20truck%20freight%20road/). Photographer name and direct photo-page URL were not retained in the downloaded file metadata. |
+| `public/images/tanzania-highway-truck.jpg` | Story and vehicle cards, news | Pexels search result for Tanzania / East African highway freight; matching local candidate: `image-search/site-pexels-com-photo-tanzania-truck-tra-3.jpg`. [Pexels search: Tanzania truck transport](https://www.pexels.com/search/tanzania%20truck%20transport/). Photographer name and direct photo-page URL were not retained in the downloaded file metadata. |
+| `public/images/rural-east-africa-route.jpg` | Cross-border news article | Pexels search result for a rural East African transport route; matching local candidate: `image-search/site-pexels-com-photo-tanzania-truck-tra-2.jpg`. [Pexels search: East Africa road transport](https://www.pexels.com/search/east%20africa%20road%20transport/). Photographer name and direct photo-page URL were not retained in the downloaded file metadata. |
+| `public/images/nairobi-last-mile.jpg` | About section and last-mile vehicle/story cards | Pexels search result for Kenyan delivery riders; matching local candidate: `image-search/pexels-kenyan-delivery-rider-nairobi-pac-4.jpg`. Embedded XMP/EXIF credit: **Thee MC G'Zay**. [Pexels search: Thee MC G'Zay](https://www.pexels.com/search/Thee%20MC%20G%27Zay/). The direct photo-page URL was not retained. |
+
+License reference: [Pexels License](https://www.pexels.com/license/). Search links are provided for traceability; before production launch, replace them with each exact Pexels photo page and confirm the photographer attribution against the original download/source record.
