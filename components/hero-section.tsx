@@ -3,15 +3,23 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, ArrowUpRight, CircleCheck, MapPin, PackageCheck, Route, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, PackageCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const HeroTruck = dynamic(() => import('@/components/hero-truck').then((module) => module.HeroTruck), {
+const HeroVehicles = dynamic(() => import('@/components/hero-vehicles').then((module) => module.HeroVehicles), {
   ssr: false,
-  loading: () => <div className="hero-truck hero-truck--loading" aria-hidden="true"><div className="truck-loading-mark"><Truck size={52} strokeWidth={1.1} /></div></div>,
+  loading: () => <div className="hero-vehicles hero-vehicles--loading" aria-hidden="true" />,
 });
 
 const headlineWords = ['Move', 'East', 'Africa', 'Forward.'];
+
+// Brand photos that cross-fade behind the hero copy (decorative, so alt text is empty).
+const backdropPhotos = [
+  '/images/tanzania-freight-road.jpg',
+  '/images/rural-east-africa-route.jpg',
+  '/images/nairobi-last-mile.jpg',
+  '/images/tanzania-highway-truck.jpg',
+];
 
 function AnimatedCounter({ value }: { value: number }) {
   const [count, setCount] = useState(0);
@@ -57,23 +65,25 @@ export function HeroSection() {
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 769px)');
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setEnable3D(desktop.matches && !reduced.matches);
+    const update = () => setEnable3D(desktop.matches);
     update();
     desktop.addEventListener('change', update);
-    reduced.addEventListener('change', update);
-    return () => {
-      desktop.removeEventListener('change', update);
-      reduced.removeEventListener('change', update);
-    };
+    return () => desktop.removeEventListener('change', update);
   }, []);
 
   return (
     <section className="hero-section" id="top" aria-labelledby="hero-title">
       <div className="hero-gradient" aria-hidden="true" />
+      <div className="hero-photos" aria-hidden="true">
+        {backdropPhotos.map((src, index) => (
+          <div className="hero-photo" style={{ animationDelay: `${index * 6}s` }} key={src}>
+            <Image src={src} alt="" fill sizes="100vw" priority={index === 0} />
+          </div>
+        ))}
+      </div>
       <div className="hero-grid container">
         <div className="hero-copy">
-          <div className="hero-kicker"><span className="eyebrow-mark" /> FREIGHT THAT MOVES US <span className="hero-kicker-divider" /> <span className="glitch-word" data-text="FLEET">FLEET</span></div>
+          <div className="hero-kicker">FREIGHT THAT MOVES US <span className="hero-kicker-divider" /> <span className="glitch-word" data-text="FLEET">FLEET</span></div>
           <StaggeredHeadline />
           <p className="hero-subcopy">Freight, last-mile delivery, and fleet management solutions built for East African roads.</p>
           <div className="hero-actions">
@@ -82,19 +92,13 @@ export function HeroSection() {
           </div>
           <div className="hero-proof-row">
             <div className="hero-proof"><span className="live-signal" aria-hidden="true"><i /></span><span><strong aria-hidden="true"><AnimatedCounter value={4} /></strong> core service pillars, one connected plan.<span className="sr-only">Four connected service pillars: road freight, last-mile delivery, fleet support, and route coordination.</span></span></div>
-            <div className="hero-proof-pills"><span><ShieldCheck size={14} /> Careful cargo handling</span><span><MapPin size={14} /> Nairobi-based operations</span></div>
           </div>
           <a className="hero-scroll" href="#story"><span>See how it moves</span><ArrowDown size={15} aria-hidden="true" /></a>
         </div>
         <div className="hero-visual-wrap">
-          <span className="hero-visual-orbit hero-visual-orbit--one" aria-hidden="true" />
-          <span className="hero-visual-orbit hero-visual-orbit--two" aria-hidden="true" />
-          {enable3D ? <HeroTruck /> : <div className="hero-truck hero-truck--poster hero-truck--static" role="img" aria-label="Freight trucks moving along a rural East African road"><Image className="hero-truck__poster" src="/images/tanzania-freight-road.jpg" alt="" width={500} height={333} priority /><span className="truck-route-stamp">NAIROBI <i>→</i> MOMBASA</span><span className="truck-label">Built for the road ahead</span></div>}
-          <div className="hero-route-tag"><Route size={15} aria-hidden="true" /><span><strong>01 / 04</strong> On the move</span></div>
-          <div className="hero-stat-card"><span className="hero-stat-card__icon"><CircleCheck size={17} /></span><div><strong>Door-to-door</strong><small>One accountable partner</small></div><span className="hero-stat-card__arrow"><ArrowUpRight size={16} /></span></div>
+          {enable3D && <HeroVehicles />}
         </div>
       </div>
-      <div className="hero-bottom-line container" aria-hidden="true"><span>KENYA</span><i /><span>UGANDA</span><i /><span>TANZANIA</span><i /><span>RWANDA</span><i /><span>ACROSS EAST AFRICA</span></div>
     </section>
   );
 }

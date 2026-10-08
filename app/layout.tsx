@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { AmbientParticles } from '@/components/ambient-particles';
 import { CookieConsent } from '@/components/cookie-consent';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
@@ -84,7 +83,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <SplashScreen />
-        <AmbientParticles />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <SiteFooter />
