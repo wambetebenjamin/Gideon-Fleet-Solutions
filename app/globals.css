@@ -163,10 +163,16 @@ p { margin-bottom: 0; }
 /* Hero backdrop: brand photos cross-fade behind the copy, under a navy gradient so the headline stays legible. */
 .hero-photos { position: absolute; z-index: -2; inset: 0; overflow: hidden; pointer-events: none; }
 .hero-photo { position: absolute; inset: 0; opacity: 0; animation: heroPhoto 24s ease-in-out infinite; }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); }
-.hero-photos::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(0,29,56,.94) 0%, rgba(0,29,56,.82) 42%, rgba(0,29,56,.6) 100%), linear-gradient(0deg, rgba(0,29,56,.95) 0%, rgba(0,29,56,0) 38%); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.05) brightness(1.08); }
+.hero-photos::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(0,29,56,.8) 0%, rgba(0,29,56,.44) 46%, rgba(0,29,56,.1) 100%), linear-gradient(0deg, rgba(0,29,56,.85) 0%, rgba(0,29,56,0) 34%); }
 @keyframes heroPhoto { 0% { opacity: 0; transform: scale(1.08); } 8% { opacity: 1; } 25% { opacity: 1; transform: scale(1); } 33%, 100% { opacity: 0; transform: scale(1); } }
-.hero-visual-wrap::before { position: absolute; z-index: 0; inset: 8% 4%; content: ""; background: radial-gradient(ellipse at 55% 50%, rgba(253,142,94,.24), transparent 64%); pointer-events: none; }
+.hero-visual-wrap::before { position: absolute; z-index: 0; inset: 8% 4%; content: ""; background: radial-gradient(ellipse at 55% 50%, rgba(253,142,94,.18), transparent 62%); pointer-events: none; }
+/* 3D vehicles float over the photos on a transparent canvas: no panel, border, or background. */
+.hero-vehicles { position: absolute; z-index: 1; inset: 0; outline: none; cursor: grab; touch-action: pan-y; }
+.hero-vehicles canvas { display: block; width: 100%; height: 100%; }
+.hero-vehicles.is-dragging { cursor: grabbing; }
+.hero-vehicles:focus-visible { outline: 2px solid var(--focus-color); outline-offset: 8px; border-radius: 12px; }
+.hero-vehicles--loading { min-height: 420px; }
 @media (prefers-reduced-motion: reduce) {
   .hero-photo { animation: none; opacity: 0; }
   .hero-photo:first-child { opacity: 1; }
@@ -199,13 +205,7 @@ p { margin-bottom: 0; }
 .hero-scroll { display: inline-flex; align-items: center; gap: 9px; margin-top: 42px; color: rgba(255,255,255,.6); font-size: 14px; letter-spacing: .04em; transition: color var(--transition-fast); }
 .hero-scroll:hover { color: var(--white); }
 .hero-scroll svg { animation: scrollBounce 1.8s ease-in-out infinite; }
-.hero-visual-wrap { position: relative; min-width: 0; min-height: 455px; display: flex; align-items: center; justify-content: center; }
-.hero-truck { position: relative; z-index: 1; width: min(100%, 610px); height: 390px; overflow: hidden; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; background: radial-gradient(ellipse at 60% 47%, rgba(253,142,94,.19), transparent 50%), linear-gradient(140deg, rgba(8,34,53,.95), rgba(1,17,32,.92)); box-shadow: 0 22px 45px rgba(0,0,0,.22); cursor: grab; touch-action: pan-y; }
-.hero-truck:active { cursor: grabbing; }
-.hero-truck canvas { display: block; width: 100%; height: 100%; }
-.hero-truck__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.82); opacity: .62; }
-.hero-truck--poster::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(0,29,56,.25), rgba(0,29,56,.05)), linear-gradient(0deg, rgba(0,29,56,.4), transparent 70%); }
-.hero-truck--loading { display: grid; place-items: center; color: #FDAE5C; }
+.hero-visual-wrap { position: relative; min-width: 0; min-height: 470px; display: flex; align-items: center; justify-content: center; }
 .truck-loading-mark { width: 106px; height: 106px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; color: #FDAE5C; }
 .truck-orbit-hint { position: absolute; z-index: 3; right: 18px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius-pill); background: rgba(0,29,56,.74); color: rgba(255,255,255,.76); font-size: 13px; letter-spacing: .04em; pointer-events: none; }
 .orbit-dot { width: 6px; height: 6px; border-radius: 50%; background: #FDAE5C; }
@@ -947,7 +947,6 @@ p { margin-bottom: 0; }
   .brand-wordmark { width: 162px; }
   .hero-grid { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
   .hero-title { font-size: 54px; }
-  .hero-truck { height: 360px; }
   .quote-grid { grid-template-columns: minmax(0,.72fr) minmax(480px,1.28fr); gap: 45px; }
   .footer-top { gap: 28px; }
   .route-demo-grid { gap: 55px; }
@@ -965,7 +964,6 @@ p { margin-bottom: 0; }
   .hero-grid { min-height: 485px; gap: 10px; }
   .hero-title { font-size: 48px; }
   .hero-visual-wrap { min-height: 410px; }
-  .hero-truck { height: 330px; }
   .section-heading h2 { font-size: 40px; }
   .tracking-panel { grid-template-columns: minmax(0,1.25fr) minmax(300px,.9fr); }
   .story-layout { gap: 48px; }
@@ -1288,8 +1286,6 @@ p { margin-bottom: 0; }
   .story-pattern::before, .story-pattern::after, .story-pattern span { animation: none; }
   .story-visual-sticky { position: static; }
   .story-beat { min-height: 0; opacity: 1; }
-  .hero-truck:not(.hero-truck--poster) canvas { display: none; }
-  .hero-truck--poster { cursor: default; }
   .site-header.is-scrolled { background: white; -webkit-backdrop-filter: none; backdrop-filter: none; transition: none; }
   .map-route, .route-map-line, .story-path-overlay path, .route-map-pulse, .map-truck-marker, .map-cursor-dot, .route-map-truck, .mascot-arm, .mascot-hand, .gooey-orb, .doodle-route, .doodle-truck, .iso-scene > div, .sprite-truck, .whatsapp-float, .industry-track, .preloader-truck svg, .hero-scroll svg { animation: none !important; }
   .map-route, .route-map-line, .story-path-overlay path, .doodle-route { stroke-dasharray: none; }
@@ -1354,6 +1350,9 @@ p { margin-bottom: 0; }
   .subpage-intro > p, .subpage-hero p, .article-excerpt, .legal-content > p.legal-lead { font-size: 17px; }
   .legal-content section h2 { font-size: 23px; }
   .legal-content section p { font-size: 16px; }
+}
+@media (max-width: 768px) {
+  .hero-photos::after { background: linear-gradient(180deg, rgba(0,29,56,.62) 0%, rgba(0,29,56,.5) 45%, rgba(0,29,56,.86) 100%); }
 }
 @media (max-width: 400px) {
   .subpage-intro h1, .subpage-hero h1, .legal-hero h1, .article-hero h1 { font-size: 36px; }

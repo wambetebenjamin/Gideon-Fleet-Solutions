@@ -3,12 +3,12 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, ArrowUpRight, PackageCheck, Truck } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, PackageCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const HeroTruck = dynamic(() => import('@/components/hero-truck').then((module) => module.HeroTruck), {
+const HeroVehicles = dynamic(() => import('@/components/hero-vehicles').then((module) => module.HeroVehicles), {
   ssr: false,
-  loading: () => <div className="hero-truck hero-truck--loading" aria-hidden="true"><div className="truck-loading-mark"><Truck size={52} strokeWidth={1.1} /></div></div>,
+  loading: () => <div className="hero-vehicles hero-vehicles--loading" aria-hidden="true" />,
 });
 
 const headlineWords = ['Move', 'East', 'Africa', 'Forward.'];
@@ -65,15 +65,10 @@ export function HeroSection() {
 
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 769px)');
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setEnable3D(desktop.matches && !reduced.matches);
+    const update = () => setEnable3D(desktop.matches);
     update();
     desktop.addEventListener('change', update);
-    reduced.addEventListener('change', update);
-    return () => {
-      desktop.removeEventListener('change', update);
-      reduced.removeEventListener('change', update);
-    };
+    return () => desktop.removeEventListener('change', update);
   }, []);
 
   return (
@@ -101,7 +96,7 @@ export function HeroSection() {
           <a className="hero-scroll" href="#story"><span>See how it moves</span><ArrowDown size={15} aria-hidden="true" /></a>
         </div>
         <div className="hero-visual-wrap">
-          {enable3D ? <HeroTruck /> : <div className="hero-truck hero-truck--poster hero-truck--static" role="img" aria-label="Freight trucks moving along a rural East African road"><Image className="hero-truck__poster" src="/images/tanzania-freight-road.jpg" alt="" width={500} height={333} priority /></div>}
+          {enable3D && <HeroVehicles />}
         </div>
       </div>
     </section>

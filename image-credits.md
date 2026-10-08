@@ -10,3 +10,14 @@ All photography below was selected from Pexels, downloaded into `public/images/`
 | `public/images/nairobi-last-mile.jpg` | About section and last-mile vehicle/story cards | Pexels search result for Kenyan delivery riders; matching local candidate: `image-search/pexels-kenyan-delivery-rider-nairobi-pac-4.jpg`. Embedded XMP/EXIF credit: **Thee MC G'Zay**. [Pexels search: Thee MC G'Zay](https://www.pexels.com/search/Thee%20MC%20G%27Zay/). The direct photo-page URL was not retained. |
 
 License reference: [Pexels License](https://www.pexels.com/license/). Search links are provided for traceability; before production launch, replace them with each exact Pexels photo page and confirm the photographer attribution against the original download/source record.
+
+## 3D vehicle models
+
+The hero's floating 3D vehicles use two glTF sample models from the Khronos glTF Sample Assets repository, compressed for the web (textures to WebP at 1024 px; the car uses Draco geometry compression). Both are licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
+
+| Local file | Model | Credit |
+|---|---|---|
+| `public/models/vehicles/cesium-milk-truck.glb` | Cesium Milk Truck | © 2017, Cesium — [source](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CesiumMilkTruck) |
+| `public/models/vehicles/concept-car.glb` | Car Concept | © 2024, Darmstadt Graphics Group GmbH; model and textures by Eric Chadwick — [source](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept) |
+
+`public/draco/` holds the Draco decoder from three.js (MIT licence), used to load the compressed car model.
