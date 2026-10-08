@@ -230,8 +230,6 @@ export function HeroTruck() {
     <div className={`hero-truck ${poster ? 'hero-truck--poster' : ''}`} ref={containerRef} role="group" tabIndex={0} aria-label="Interactive 3D freight truck. Drag to orbit, or use the arrow keys.">
       {poster && <Image className="hero-truck__poster" src="/images/tanzania-freight-road.jpg" alt="Freight trucks moving along a rural East African road" width={500} height={333} priority />}
       <span className="truck-orbit-hint"><span className="orbit-dot" /> Drag to look around</span>
-      <span className="truck-route-stamp">NAIROBI <i>→</i> MOMBASA</span>
-      <span className="truck-label">Built for the road ahead</span>
     </div>
   );
 }
