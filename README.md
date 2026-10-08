@@ -5,9 +5,9 @@ Production-oriented freight, delivery-contract, fleet-partner, and tracking webs
 ## Runtime and pinned stack
 
 - Node.js `24.0.0` (`.nvmrc`); package engine `node >=24.0.0`.
-- Next.js `15.1.0` App Router, React / React DOM `19.0.0`, TypeScript `5.7.2`.
+- Next.js `15.5.27` App Router, React / React DOM `19.0.8`, TypeScript `5.7.2`. Next.js 15.1.0 was upgraded because it is affected by CVE-2025-66478 (RCE), CVE-2025-55184 (DoS), and CVE-2025-55183 (source exposure); `15.5.27` is the patched 15.x release.
 - Lucide React `0.468.0`, Three.js `0.171.0`, `@vercel/blob` `2.8.1`, and Nodemailer `10.0.16`.
-- Exact dependency versions are pinned in `package.json` and `package-lock.json`; Nodemailer includes its own TypeScript definitions. The `postcss` `8.5.29` and `sharp` `0.35.5` overrides keep those transitive runtime packages on patched releases while the required Next.js pin remains fixed.
+- Exact dependency versions are pinned in `package.json` and `package-lock.json`; Nodemailer includes its own TypeScript definitions. The `postcss` `8.5.29` and `sharp` `0.35.5` overrides keep those transitive runtime packages on patched releases.
 
 ```bash
 nvm use
@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Run `npm run typecheck`, `npm run lint`, and `npm run build` before deployment. The requested Next.js `15.1.0` pin is retained; `postcss` and `sharp` are overridden to patched compatible releases, but `npm audit --omit=dev` still reports one critical advisory in Next.js itself. The full development audit also flags five high-severity findings in the Next ESLint plugin’s `fast-glob`/`micromatch`/`braces` dependency chain. Do not expose a production deployment until the project owner authorizes a patched Next.js baseline and both audits are reviewed.
+Run `npm run typecheck`, `npm run lint`, and `npm run build` before deployment. `npm audit --omit=dev` reports no critical or high advisories for the runtime dependency tree after the Next.js and React upgrade. The full development audit still flags five high-severity findings in the `fast-glob`/`micromatch`/`braces` chain pulled in by `eslint-config-next`; these are dev-only (lint tooling), and the `braces` override already resolves to the newest published release (`3.0.3`).
 
 ## Routes
 
