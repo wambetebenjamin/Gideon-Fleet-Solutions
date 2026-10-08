@@ -157,65 +157,67 @@ export function TrackingBoard() {
 
   return (
     <section className="tracking-section section-shell" id="tracking-board" aria-labelledby="tracking-title">
-      <div className="section-heading section-heading--split">
-        <div><span className="eyebrow eyebrow--orange">Always in view</span><h2 id="tracking-title">Every delivery has a <em>next step.</em></h2></div>
-        <p>Follow your consignment from first pickup to final handover. One waybill, clear updates, and a real person if plans change.</p>
-      </div>
-      <div className="tracking-panel">
-        <div className="tracking-map-panel" onPointerMove={presence.updateCursor}>
-          <div className="tracking-map-head"><div><span className="map-status-dot" /><span>{presence.liveMode === 'websocket' ? 'Connected presence service' : presence.liveMode === 'local' ? 'Same-browser tab presence' : 'Presence preview'}</span></div><span className="map-users"><span className="user-stacks"><i>G</i>{presence.peers.slice(0, 2).map((peer, index) => <i key={peer.id} style={{ background: peer.color }}>{index + 1}</i>)}</span>{presence.peers.length > 0 ? `${presence.peers.length + 1} viewing` : 'Just you for now'}</span></div>
-          <div className="map-art" role="img" aria-label="Illustrative East African route overview with sample waybill GFS-24851">
-            <svg className="map-lines" viewBox="0 0 700 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-              <path d="M-20 94C98 100 113 157 207 151s122-88 211-64 86 105 181 97 92-46 139-34M-30 248c111-12 137-92 226-84s114 98 216 89 129-40 196 6 70 70 138 66M80-10c-4 99 48 105 45 195s-56 86-47 220M342-30c23 69-5 130 21 195s69 68 67 147M574-20c-33 71-8 130 11 186s-10 122 12 228" />
-              <path className="map-route" d="M146 262C185 220 228 203 281 184s83-22 125-45 59-41 106-63" />
-            </svg>
-            <span className="map-label map-label--nairobi"><i />Nairobi</span><span className="map-label map-label--nakuru"><i />Nakuru</span><span className="map-label map-label--mombasa"><i />Mombasa</span><span className="map-label map-label--kampala"><i />Kampala</span>
-            <span className="map-truck-marker"><Truck size={18} /></span>
-            <span className="map-live-pin"><i /><b>DEMO · GFS-24851</b></span>
-            <span className="map-cursor-dot map-cursor-dot--one" /><span className="map-cursor-dot map-cursor-dot--two" />
-            {presence.peers.map((peer) => <span key={peer.id} className="peer-cursor" style={{ left: `${peer.x}%`, top: `${peer.y}%`, backgroundColor: peer.color }} aria-hidden="true" />)}
-            <span className="map-scale">EAST AFRICA · ROUTE VIEW</span>
-          </div>
-          <div className="tracking-map-footer"><span><i className="legend-dot legend-dot--orange" /> Sample route</span><span><i className="legend-dot legend-dot--teal" /> Regional hubs</span><span className="live-state"><Wifi size={13} /> {presence.liveMode === 'websocket' ? 'Presence connected' : presence.liveMode === 'local' ? 'This browser only' : 'Preview mode'}</span></div>
+      <div className="container">
+        <div className="section-heading section-heading--split">
+          <div><span className="eyebrow eyebrow--orange">Always in view</span><h2 id="tracking-title">Every delivery has a <em>next step.</em></h2></div>
+          <p>Follow your consignment from first pickup to final handover. One waybill, clear updates, and a real person if plans change.</p>
         </div>
-        <div className="tracking-side-panel">
-          <div className="tracking-side-top"><span className="mini-overline">SHIPMENT LOOKUP</span><span className="tracking-tag"><span className="live-signal"><i /></span> READY</span></div>
-          <h3>Where should we look?</h3>
-          <p>Enter the waybill number from your dispatch note.</p>
-          <form className="tracking-form" onSubmit={submit} noValidate>
-            <label htmlFor="waybill-number">Waybill number</label>
-            <div className={`waybill-control ${invalid ? 'is-invalid' : ''}`}>
-              <PackageCheck size={17} aria-hidden="true" />
-              <input id="waybill-number" name="waybill" value={waybill} onChange={(event) => { setWaybill(event.target.value); setInvalid(false); setError(''); }} placeholder="e.g. GFS-24851" aria-invalid={invalid} aria-describedby={error ? 'waybill-error' : 'waybill-hint'} />
-              <button type="submit" aria-label="Track shipment" disabled={loading}>{loading ? <RefreshCw className="spin" size={17} /> : <ArrowRight size={17} />}</button>
+        <div className="tracking-panel">
+          <div className="tracking-map-panel" onPointerMove={presence.updateCursor}>
+            <div className="tracking-map-head"><div><span className="map-status-dot" /><span>{presence.liveMode === 'websocket' ? 'Connected presence service' : presence.liveMode === 'local' ? 'Same-browser tab presence' : 'Presence preview'}</span></div><span className="map-users"><span className="user-stacks"><i>G</i>{presence.peers.slice(0, 2).map((peer, index) => <i key={peer.id} style={{ background: peer.color }}>{index + 1}</i>)}</span>{presence.peers.length > 0 ? `${presence.peers.length + 1} viewing` : 'Just you for now'}</span></div>
+            <div className="map-art" role="img" aria-label="Illustrative East African route overview with sample waybill GFS-24851">
+              <svg className="map-lines" viewBox="0 0 700 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <path d="M-20 94C98 100 113 157 207 151s122-88 211-64 86 105 181 97 92-46 139-34M-30 248c111-12 137-92 226-84s114 98 216 89 129-40 196 6 70 70 138 66M80-10c-4 99 48 105 45 195s-56 86-47 220M342-30c23 69-5 130 21 195s69 68 67 147M574-20c-33 71-8 130 11 186s-10 122 12 228" />
+                <path className="map-route" d="M146 262C185 220 228 203 281 184s83-22 125-45 59-41 106-63" />
+              </svg>
+              <span className="map-label map-label--nairobi"><i />Nairobi</span><span className="map-label map-label--nakuru"><i />Nakuru</span><span className="map-label map-label--mombasa"><i />Mombasa</span><span className="map-label map-label--kampala"><i />Kampala</span>
+              <span className="map-truck-marker"><Truck size={18} /></span>
+              <span className="map-live-pin"><i /><b>DEMO · GFS-24851</b></span>
+              <span className="map-cursor-dot map-cursor-dot--one" /><span className="map-cursor-dot map-cursor-dot--two" />
+              {presence.peers.map((peer) => <span key={peer.id} className="peer-cursor" style={{ left: `${peer.x}%`, top: `${peer.y}%`, backgroundColor: peer.color }} aria-hidden="true" />)}
+              <span className="map-scale">EAST AFRICA · ROUTE VIEW</span>
             </div>
-            <span id="waybill-hint" className="field-hint">Try demo waybill GFS-24851</span>
-            {error && <span id="waybill-error" className="field-error" role="alert">{error}</span>}
-            {captcha.challenge}
-          </form>
-          <div className="tracking-side-promise"><span><ShieldCheck size={16} /></span><p><strong>Keep one reference.</strong><small>Use the waybill on your dispatch note.</small></p></div>
-          <div className="tracking-service-stats"><span><MapPin size={14} /> Waybill lookup</span><span><Clock3 size={14} /> Nairobi operations</span></div>
-        </div>
-      </div>
-
-      <div className="tracking-result-wrap" aria-busy={loading}>
-        {loading && <div className="tracking-result skeleton-result"><div className="skeleton-map" /><div className="skeleton-details"><i /><i /><i /></div></div>}
-        {shipment && !loading && (
-          <div className="tracking-result">
-            <div className="tracking-result__info">
-              <div className="tracking-result__eyebrow"><span className="live-signal"><i /></span> Shipment status <span className="demo-label">{shipment.demo ? 'DEMO' : 'LIVE'}</span></div>
-              <h3>{shipment.status}</h3>
-              <p className="tracking-waybill">Waybill <strong>{shipment.waybill}</strong></p>
-              <div className="tracking-facts">
-                <div><MapPin size={15} /><span><small>Current location</small><strong>{shipment.currentLocation}</strong></span></div>
-                <div><UserRound size={15} /><span><small>Driver</small><strong>{shipment.driverName}</strong></span></div>
-                <div><Clock3 size={15} /><span><small>Estimated arrival</small><strong>{shipment.estimatedArrival}</strong></span></div>
+            <div className="tracking-map-footer"><span><i className="legend-dot legend-dot--orange" /> Sample route</span><span><i className="legend-dot legend-dot--teal" /> Regional hubs</span><span className="live-state"><Wifi size={13} /> {presence.liveMode === 'websocket' ? 'Presence connected' : presence.liveMode === 'local' ? 'This browser only' : 'Preview mode'}</span></div>
+          </div>
+          <div className="tracking-side-panel">
+            <div className="tracking-side-top"><span className="mini-overline">SHIPMENT LOOKUP</span><span className="tracking-tag"><span className="live-signal"><i /></span> READY</span></div>
+            <h3>Where should we look?</h3>
+            <p>Enter the waybill number from your dispatch note.</p>
+            <form className="tracking-form" onSubmit={submit} noValidate>
+              <label htmlFor="waybill-number">Waybill number</label>
+              <div className={`waybill-control ${invalid ? 'is-invalid' : ''}`}>
+                <PackageCheck size={17} aria-hidden="true" />
+                <input id="waybill-number" name="waybill" value={waybill} onChange={(event) => { setWaybill(event.target.value); setInvalid(false); setError(''); }} placeholder="e.g. GFS-24851" aria-invalid={invalid} aria-describedby={error ? 'waybill-error' : 'waybill-hint'} />
+                <button type="submit" aria-label="Track shipment" disabled={loading}>{loading ? <RefreshCw className="spin" size={17} /> : <ArrowRight size={17} />}</button>
               </div>
-              <span className="last-updated">Updated {new Date(shipment.lastUpdated).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Nairobi' })} EAT · {shipment.origin} to {shipment.destination}</span>
-            </div>
-            <div className="tracking-result__map"><iframe src={mapUrl} title={`Google Maps view of shipment location near ${shipment.currentLocation}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><span className="google-map-marker"><MapPin size={16} fill="currentColor" /> {shipment.demo ? 'Demo location' : 'Current location'}</span></div>
+              <span id="waybill-hint" className="field-hint">Try demo waybill GFS-24851</span>
+              {error && <span id="waybill-error" className="field-error" role="alert">{error}</span>}
+              {captcha.challenge}
+            </form>
+            <div className="tracking-side-promise"><span><ShieldCheck size={16} /></span><p><strong>Keep one reference.</strong><small>Use the waybill on your dispatch note.</small></p></div>
+            <div className="tracking-service-stats"><span><MapPin size={14} /> Waybill lookup</span><span><Clock3 size={14} /> Nairobi operations</span></div>
           </div>
-        )}
+        </div>
+
+        <div className="tracking-result-wrap" aria-busy={loading}>
+          {loading && <div className="tracking-result skeleton-result"><div className="skeleton-map" /><div className="skeleton-details"><i /><i /><i /></div></div>}
+          {shipment && !loading && (
+            <div className="tracking-result">
+              <div className="tracking-result__info">
+                <div className="tracking-result__eyebrow"><span className="live-signal"><i /></span> Shipment status <span className="demo-label">{shipment.demo ? 'DEMO' : 'LIVE'}</span></div>
+                <h3>{shipment.status}</h3>
+                <p className="tracking-waybill">Waybill <strong>{shipment.waybill}</strong></p>
+                <div className="tracking-facts">
+                  <div><MapPin size={15} /><span><small>Current location</small><strong>{shipment.currentLocation}</strong></span></div>
+                  <div><UserRound size={15} /><span><small>Driver</small><strong>{shipment.driverName}</strong></span></div>
+                  <div><Clock3 size={15} /><span><small>Estimated arrival</small><strong>{shipment.estimatedArrival}</strong></span></div>
+                </div>
+                <span className="last-updated">Updated {new Date(shipment.lastUpdated).toLocaleTimeString('en-KE', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Nairobi' })} EAT · {shipment.origin} to {shipment.destination}</span>
+              </div>
+              <div className="tracking-result__map"><iframe src={mapUrl} title={`Google Maps view of shipment location near ${shipment.currentLocation}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><span className="google-map-marker"><MapPin size={16} fill="currentColor" /> {shipment.demo ? 'Demo location' : 'Current location'}</span></div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
